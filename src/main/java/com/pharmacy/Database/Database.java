@@ -16,6 +16,8 @@ public class Database {
     public static MongoDatabase database = client.getDatabase("Pharmacy");
 
     public static MongoCollection<Document> users = Database.database.getCollection("users");
+    public static MongoCollection<Document> medicine = Database.database.getCollection("medicine");
 
     public static FindIterable<Document> foundedUsers = users.find();
+    public static FindIterable<Document> foundedMedicine = medicine.find();
 }
