@@ -29,7 +29,7 @@ public class Worker  {
         WorkerListView.setOnMouseClicked(event -> {
             aktuallOption = WorkerListView.getSelectionModel().getSelectedItem();
             switch (aktuallOption) {
-                case "Show available medicines" -> {}
+                case "Show available medicines" -> Methods.loadStage("medList", event);
                 case "Search medicine" -> {}
                 case "Report" -> {}
                 case "Make order" -> {}
