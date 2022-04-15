@@ -23,8 +23,13 @@ import javafx.stage.Stage;
 //Java util and org imports
 import org.bson.Document;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
+import static com.pharmacy.Database.Database.foundedMedicine;
+import static com.pharmacy.Database.Database.medicine;
 
 public class Methods {
 
@@ -65,14 +70,7 @@ public class Methods {
             loadStage(userPosition, event);
 
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText("Wrong login or password");
-            alert.showAndWait().ifPresent(rs -> {
-                if (rs == ButtonType.OK) {
-                    System.out.print("");
-                }
-            });
+            alert("Error", "Wrong login or password");
         }
     }
 
@@ -103,13 +101,103 @@ public class Methods {
     //Getting all medicine method
     public static ObservableList getMeds() {
         ObservableList<Medicine> meds = FXCollections.observableArrayList();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         for (Document document : Database.foundedMedicine) {
             Medicine medicine = new Medicine(
                     document.getString("name"),
-                    Integer.parseInt(document.getString("quant")),
-                    Integer.parseInt(document.getString("price")));
+                    document.getInteger("quant"),
+                    document.getInteger("price"),
+                    document.getInteger("code"),
+                    df.format(document.getDate("Date"))
+            );
             meds.add(medicine);
         }
         return meds;
+    }
+
+    //Search medicine
+    public static Medicine getMed(String parameter) {
+        Medicine medicine = new Medicine("", 0, 0, 0, "");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        for (Document document : Database.foundedMedicine) {
+            try {
+                if (document.getString("name").equals(parameter)) {
+                    medicine.setName(document.getString("name"));
+                    medicine.setQuant(document.getInteger("quant"));
+                    medicine.setPrice(document.getInteger("price"));
+                    medicine.setSerialNumber(document.getInteger("code"));
+                    medicine.setDate(df.format(document.getDate("Date")));
+                } else if(document.getInteger("code").equals(Integer.parseInt(parameter))) {
+                    medicine.setName(document.getString("name"));
+                    medicine.setQuant(document.getInteger("quant"));
+                    medicine.setPrice(document.getInteger("price"));
+                    medicine.setSerialNumber(document.getInteger("code"));
+                    medicine.setDate(df.format(document.getDate("Date")));
+                }
+            } catch (NumberFormatException ignored) {}
+
+        }
+        if (medicine.getName().equals("")) {
+            alert("No medicine found", "Wrong name or serial number");
+        }
+        return medicine;
+    }
+
+    //Getting needed medicine
+    public static ObservableList getNeededMeds() {
+        ObservableList<Medicine> meds = FXCollections.observableArrayList();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        for (Document document : Database.foundedMedicine) {
+            if (document.getInteger("quant") < 10) {
+                Medicine medicine = new Medicine(
+                        document.getString("name"),
+                        document.getInteger("quant"),
+                        document.getInteger("price"),
+                        document.getInteger("code"),
+                        df.format(document.getDate("Date"))
+                );
+                meds.add(medicine);
+            }
+        }
+
+        return meds;
+    }
+
+    //Getting medicine with discount
+    public static ObservableList getMedsWithDiscount() {
+        ObservableList<Medicine> meds = FXCollections.observableArrayList();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        for (Document document : Database.foundedMedicine) {
+            if (document.getInteger("discount") != null) {
+                Medicine medicine = new Medicine(
+                        document.getString("name"),
+                        document.getInteger("quant"),
+                        document.getInteger("price"),
+                        document.getInteger("code"),
+                        df.format(document.getDate("Date")),
+                        document.getInteger("discount")
+                );
+                meds.add(medicine);
+            }
+        }
+        return meds;
+    }
+
+    //Making new order
+    public static void makeOrder(String name, int quant, String address) {
+        Document order = new Document();
+        for (Document document : Database.foundedMedicine) {
+            if (document.getString("name").equals(name)) {
+                order.append("medicine", name);
+                order.append("quantity", quant);
+                order.append("address", address);
+                if (document.getInteger("discount") != null) {
+                    order.append("totalSum", (document.getInteger("price") - ((document.getInteger("price")/100)*document.getInteger("discount")) * quant + 200));
+                } else {
+                    order.append("totalSum", document.getInteger("price") * quant);
+                }
+                Database.orders.insertOne(order);
+            }
+        }
     }
 }
