@@ -17,7 +17,7 @@ public class Worker  {
     @FXML
     private Button LogOutButton;
 
-    String[] option = {"Show available medicines", "Search medicine", "Report", "Make order", "Ordered medicines", "Needed medicines", "Medicines with discount", "Delete order"};
+    String[] option = {"Show available medicines", "Search medicine", "Make order", "Ordered medicines", "Needed medicines", "Medicines with discount", "Delete order"};
 
     String aktuallOption;
 
@@ -30,12 +30,11 @@ public class Worker  {
             aktuallOption = WorkerListView.getSelectionModel().getSelectedItem();
             switch (aktuallOption) {
                 case "Show available medicines" -> Methods.loadStage("medList", event);
-                case "Search medicine" -> {}
-                case "Report" -> {}
-                case "Make order" -> {}
+                case "Search medicine" -> Methods.loadStage("medSearch", event);
+                case "Make order" -> Methods.loadStage("makeOrder", event);
                 case "Ordered medicines" -> {}
-                case "Needed medicines" -> {}
-                case "Medicines with discount" -> {}
+                case "Needed medicines" -> Methods.loadStage("needMeds", event);
+                case "Medicines with discount" -> Methods.loadStage("discounts", event);
                 case "Delete order" -> {}
                 default -> {}
             }
