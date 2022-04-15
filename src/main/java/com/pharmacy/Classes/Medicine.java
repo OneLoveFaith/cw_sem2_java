@@ -4,11 +4,25 @@ public class Medicine {
     private String name;
     private int price;
     private int quant;
+    private int serialNumber;
+    private String date;
+    private int discount;
 
-    public Medicine(String name, int quant, int price) {
+    public Medicine(String name, int quant, int price, int serialNumber, String date) {
         this.name = name;
         this.price = price;
         this.quant = quant;
+        this.serialNumber = serialNumber;
+        this.date = date;
+    }
+
+    public Medicine(String name, int quant, int price, int serialNumber, String date, int discount) {
+        this.name = name;
+        this.price = price;
+        this.quant = quant;
+        this.serialNumber = serialNumber;
+        this.date = date;
+        this.discount = discount;
     }
 
     public String getName() {
@@ -33,5 +47,29 @@ public class Medicine {
 
     public void setQuant(int quant) {
         this.quant = quant;
+    }
+
+    public int getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(int serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 }

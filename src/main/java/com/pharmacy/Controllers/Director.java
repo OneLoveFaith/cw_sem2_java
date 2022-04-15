@@ -31,8 +31,6 @@ public class Director {
             switch (aktuallOption) {
                 case "Add worker" -> Methods.loadStage("addWorker", event);
                 case "Show available medicines" -> Methods.loadStage("medList", event);
-                case "Search medicine" -> {}
-                case "Report" -> {}
                 case "Make order" -> {}
                 case "Ordered medicines" -> {}
                 case "Needed medicines" -> {}
