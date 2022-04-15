@@ -11,7 +11,7 @@
     <children>
         <AnchorPane prefHeight="86.0" prefWidth="900.0" style="-fx-background-color: #2e3348;">
             <children>
-                <Label layoutX="345.0" layoutY="13.0" prefHeight="60.0" prefWidth="211.0" text="List of meds" textAlignment="CENTER" textFill="WHITE">
+                <Label layoutX="394.0" layoutY="13.0" prefHeight="60.0" prefWidth="113.0" text="List of meds" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font size="20.0" />
                     </font></Label>
@@ -19,11 +19,13 @@
             <Button fx:id="HomeButton" layoutX="75.0" layoutY="31.0" mnemonicParsing="false" text="Home" />
             </children>
         </AnchorPane>
-      <TableView fx:id="meds" layoutX="229.0" layoutY="115.0" prefHeight="371.0" prefWidth="437.0">
+      <TableView fx:id="meds" layoutX="124.0" layoutY="115.0" prefHeight="371.0" prefWidth="653.0">
         <columns>
           <TableColumn fx:id="name" prefWidth="145.0" text="Name" />
           <TableColumn fx:id="quant" prefWidth="145.0" text="Quantity" />
-            <TableColumn fx:id="price" prefWidth="146.0" text="Price" />
+            <TableColumn fx:id="price" prefWidth="92.0" text="Price" />
+            <TableColumn fx:id="serialNumber" prefWidth="112.0" text="Serial number" />
+            <TableColumn fx:id="date" prefWidth="158.0" text="Date" />
         </columns>
       </TableView>
     </children>
