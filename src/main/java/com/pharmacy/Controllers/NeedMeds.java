@@ -8,17 +8,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import static com.pharmacy.Methods.Methods.getMeds;
+import static com.pharmacy.Methods.Methods.getNeededMeds;
 
-public class MedList {
-
-    @FXML
-    private Button LogOutButton;
+public class NeedMeds {
 
     @FXML
     private Button HomeButton;
+
+    @FXML
+    private Button LogOutButton;
 
     @FXML
     private TableView<Medicine> meds;
@@ -27,16 +25,7 @@ public class MedList {
     private TableColumn<Medicine, String> name;
 
     @FXML
-    private TableColumn<Medicine, Integer> price;
-
-    @FXML
     private TableColumn<Medicine, Integer> quant;
-
-    @FXML
-    private TableColumn<Medicine, Integer> serialNumber;
-
-    @FXML
-    private TableColumn<Medicine, Date> date;
 
     @FXML
     void initialize() {
@@ -44,12 +33,6 @@ public class MedList {
         HomeButton.setOnAction(event -> Methods.loadStage(Login.position, event));
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         quant.setCellValueFactory(new PropertyValueFactory<>("quant"));
-        price.setCellValueFactory(new PropertyValueFactory<>("price"));
-        serialNumber.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
-        date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        meds.setItems(getMeds());
+        meds.setItems(getNeededMeds());
     }
-
 }
-
-
