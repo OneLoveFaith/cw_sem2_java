@@ -1,5 +1,6 @@
 package com.pharmacy;
 
+//Imports
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +10,7 @@ import java.util.Objects;
 
 public class Main extends Application {
     @Override
+    //Starting program
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Login.fxml")));
         primaryStage.setTitle("Pharmacy");

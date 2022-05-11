@@ -1,6 +1,7 @@
 package com.pharmacy.Classes;
 
 public class Medicine {
+    //Statements
     private String name;
     private int price;
     private int quant;
@@ -8,6 +9,7 @@ public class Medicine {
     private String date;
     private int discount;
 
+    //Constructor without discount
     public Medicine(String name, int quant, int price, int serialNumber, String date) {
         this.name = name;
         this.price = price;
@@ -16,6 +18,7 @@ public class Medicine {
         this.date = date;
     }
 
+    //Constructor with discount
     public Medicine(String name, int quant, int price, int serialNumber, String date, int discount) {
         this.name = name;
         this.price = price;
@@ -25,6 +28,8 @@ public class Medicine {
         this.discount = discount;
     }
 
+
+    //Getters and setters
     public String getName() {
         return name;
     }
