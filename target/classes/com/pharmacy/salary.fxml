@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pharmacy.Controllers.Salary">
+    <children>
+        <AnchorPane prefHeight="86.0" prefWidth="900.0" style="-fx-background-color: #2e3348;">
+            <children>
+                <Label layoutX="389.0" layoutY="13.0" prefHeight="60.0" prefWidth="123.0" text="Salary" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font size="40.0" />
+                    </font></Label>
+                <Button fx:id="LogOutButton" layoutX="802.0" layoutY="31.0" mnemonicParsing="false" text="Log out" />
+                <Button fx:id="HomeButton" layoutX="69.0" layoutY="31.0" mnemonicParsing="false" text="Home" />
+            </children>
+        </AnchorPane>
+      <Label layoutX="329.0" layoutY="149.0" text="You delivered">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="orders" layoutX="403.0" layoutY="213.0" text="orders">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="344.0" layoutY="287.0" text="Your salary is">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="salary" layoutX="413.0" layoutY="358.0">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>
