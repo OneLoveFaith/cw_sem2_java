@@ -1,11 +1,14 @@
 package com.pharmacy.Methods;
 
-
 //Imports
+import com.mongodb.client.FindIterable;
 import com.pharmacy.Classes.Medicine;
+import com.pharmacy.Classes.Order;
 import com.pharmacy.Database.Database;
 import com.pharmacy.Controllers.Login;
 import com.pharmacy.Main;
+import static com.mongodb.client.model.Filters.eq;
+import static com.pharmacy.Database.Database.*;
 
 //Javafx imports
 import javafx.collections.FXCollections;
@@ -15,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
@@ -22,14 +26,11 @@ import javafx.stage.Stage;
 
 //Java util and org imports
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-
-import static com.pharmacy.Database.Database.foundedMedicine;
-import static com.pharmacy.Database.Database.medicine;
 
 public class Methods {
 
@@ -159,9 +160,28 @@ public class Methods {
                 meds.add(medicine);
             }
         }
-
         return meds;
     }
+
+    //Getting medicines with a large amount
+    public static ObservableList getLargeMeds() {
+        ObservableList<Medicine> meds = FXCollections.observableArrayList();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        for (Document document : Database.foundedMedicine) {
+            if (document.getInteger("quant") > 90) {
+                Medicine medicine = new Medicine(
+                        document.getString("name"),
+                        document.getInteger("quant"),
+                        document.getInteger("price"),
+                        document.getInteger("code"),
+                        df.format(document.getDate("Date"))
+                );
+                meds.add(medicine);
+            }
+        }
+        return meds;
+    }
+
 
     //Getting medicine with discount
     public static ObservableList getMedsWithDiscount() {
@@ -191,6 +211,7 @@ public class Methods {
                 order.append("medicine", name);
                 order.append("quantity", quant);
                 order.append("address", address);
+                order.append("status", "ordered");
                 if (document.getInteger("discount") != null) {
                     order.append("totalSum", (document.getInteger("price") - ((document.getInteger("price")/100)*document.getInteger("discount")) * quant + 200));
                 } else {
@@ -199,5 +220,36 @@ public class Methods {
                 Database.orders.insertOne(order);
             }
         }
+    }
+
+    //Getting orders
+    public static ObservableList getOrders() {
+        ObservableList<Order> orders = FXCollections.observableArrayList();
+        for (Document document : foundedOrders) {
+            Order order = new Order(
+                    document.getObjectId("_id"),
+                    document.getString("medicine"),
+                    document.getInteger("totalSum"),
+                    document.getInteger("quantity"),
+                    document.getString("address")
+            );
+            orders.add(order);
+        }
+        return orders;
+    }
+
+    //Delete order
+    public static void deleteOrder(ObjectId id) {
+        orders.deleteOne(eq("_id", id));
+    }
+
+    //Getting data for diagram
+    public static ObservableList getData() {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        for (Document document : foundedMedicine) {
+            PieChart.Data med = new PieChart.Data(document.getString("name"), document.getInteger("quant"));
+            pieChartData.add(med);
+        }
+        return pieChartData;
     }
 }
