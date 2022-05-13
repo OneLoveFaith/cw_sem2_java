@@ -38,10 +38,5 @@
                 <Font size="24.0" />
             </font>
         </TextField>
-      <Label fx:id="sum" layoutX="277.0" layoutY="408.0" text="Total sum: ">
-         <font>
-            <Font size="40.0" />
-         </font>
-      </Label>
     </children>
 </AnchorPane>

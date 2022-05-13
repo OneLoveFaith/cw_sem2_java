@@ -1,7 +1,7 @@
 package com.pharmacy.Methods;
 
 //Imports
-import com.mongodb.client.FindIterable;
+import com.mongodb.client.model.Filters;
 import com.pharmacy.Classes.Medicine;
 import com.pharmacy.Classes.Order;
 import com.pharmacy.Database.Database;
@@ -98,7 +98,6 @@ public class Methods {
         });
     }
 
-
     //Getting all medicine method
     public static ObservableList getMeds() {
         ObservableList<Medicine> meds = FXCollections.observableArrayList();
@@ -182,7 +181,6 @@ public class Methods {
         return meds;
     }
 
-
     //Getting medicine with discount
     public static ObservableList getMedsWithDiscount() {
         ObservableList<Medicine> meds = FXCollections.observableArrayList();
@@ -238,6 +236,42 @@ public class Methods {
         return orders;
     }
 
+    //Getting not completed orders
+    public static ObservableList getNotCompleteOrders() {
+        ObservableList<Order> orders = FXCollections.observableArrayList();
+        for (Document document : foundedOrders) {
+            if (Objects.equals(document.getString("status"), "ordered")){
+                Order order = new Order(
+                        document.getObjectId("_id"),
+                        document.getString("medicine"),
+                        document.getInteger("totalSum"),
+                        document.getInteger("quantity"),
+                        document.getString("address")
+                );
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+
+    //Getting completed orders
+    public static ObservableList getCompletedOrders(ObjectId id){
+        ObservableList<Order> orders = FXCollections.observableArrayList();
+        for (Document document : foundedOrders) {
+            if (Objects.equals(document.getString("status"), "delivered") && Objects.equals(document.getObjectId("courier"), id)){
+                Order order = new Order(
+                        document.getObjectId("_id"),
+                        document.getString("medicine"),
+                        document.getInteger("totalSum"),
+                        document.getInteger("quantity"),
+                        document.getString("address")
+                );
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+
     //Delete order
     public static void deleteOrder(ObjectId id) {
         orders.deleteOne(eq("_id", id));
@@ -251,5 +285,13 @@ public class Methods {
             pieChartData.add(med);
         }
         return pieChartData;
+    }
+
+    //Delivering order
+    public static void deliverOrder(ObjectId id, ObjectId courier) {
+        orders.updateOne(Filters.eq("_id", id), new Document(
+                "$set",
+                new Document("status", "delivered").append("courier", courier)
+        ));
     }
 }
