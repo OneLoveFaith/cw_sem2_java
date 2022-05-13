@@ -20,7 +20,7 @@ public class Worker  {
     private Button LogOutButton;
 
     //Options for list
-    String[] option = {"Show available medicines", "Search medicine", "Make order", "Ordered medicines", "Needed medicines", "Medicines with discount", "Delete order"};
+    String[] option = {"Show available medicines", "Search medicine", "Make order", "Orders", "Needed medicines", "Medicines with discount"};
 
     String aktuallOption;
 
@@ -44,10 +44,9 @@ public class Worker  {
                 case "Show available medicines" -> Methods.loadStage("medList", event);
                 case "Search medicine" -> Methods.loadStage("medSearch", event);
                 case "Make order" -> Methods.loadStage("makeOrder", event);
-                case "Ordered medicines" -> {}
+                case "Orders" -> Methods.loadStage("orders", event);
                 case "Needed medicines" -> Methods.loadStage("needMeds", event);
                 case "Medicines with discount" -> Methods.loadStage("discounts", event);
-                case "Delete order" -> {}
                 default -> {}
             }
         });
