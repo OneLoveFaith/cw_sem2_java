@@ -20,7 +20,7 @@ public class Director {
     private Label DirectorLabel;
 
     //Options for list
-    String[] option = {"Add worker", "Show available medicines", "Search medicine", "Report", "Make order", "Ordered medicines", "Needed medicines", "Medicines with discount", "Delete order"};
+    String[] option = {"Add worker", "Show available medicines", "Report", "Needed medicines", "Medicines with a large amount"};
 
     String aktuallOption;
 
@@ -43,11 +43,9 @@ public class Director {
             switch (aktuallOption) {
                 case "Add worker" -> Methods.loadStage("addWorker", event);
                 case "Show available medicines" -> Methods.loadStage("medList", event);
-                case "Make order" -> {}
-                case "Ordered medicines" -> {}
-                case "Needed medicines" -> {}
-                case "Medicines with discount" -> {}
-                case "Delete order" -> {}
+                case "Report" -> Methods.loadStage("medicineDiagram", event);
+                case "Needed medicines" -> Methods.loadStage("needMeds", event);
+                case "Medicines with a large amount" -> Methods.loadStage("medsLarge", event);
                 default -> {}
             }
         });
