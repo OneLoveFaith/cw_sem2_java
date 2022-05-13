@@ -5,7 +5,10 @@ import com.pharmacy.Classes.Medicine;
 import com.pharmacy.Methods.Methods;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+
 import static com.pharmacy.Methods.Methods.getMed;
 import static com.pharmacy.Methods.Methods.makeOrder;
 
@@ -30,6 +33,9 @@ public class MakeOrder {
     @FXML
     private Button submitButton;
 
+    @FXML
+    private Label sum;
+
 
     @FXML
     void initialize(){
@@ -38,6 +44,8 @@ public class MakeOrder {
 
         //Home button action
         HomeButton.setOnAction(event -> Methods.loadStage(Login.position, event));
+
+//        sum.setText(Integer.toString(med.getPrice() * Integer.parseInt(quant.getText())));
 
         //Creating order
         submitButton.setOnAction(event -> {
