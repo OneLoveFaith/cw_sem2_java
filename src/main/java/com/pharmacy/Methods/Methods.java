@@ -202,21 +202,34 @@ public class Methods {
     }
 
     //Making new order
-    public static void makeOrder(String name, int quant, String address) {
+    public static void makeOrder(String parameter, int quant, String address) {
         Document order = new Document();
         for (Document document : Database.foundedMedicine) {
-            if (document.getString("name").equals(name)) {
-                order.append("medicine", name);
-                order.append("quantity", quant);
-                order.append("address", address);
-                order.append("status", "ordered");
-                if (document.getInteger("discount") != null) {
-                    order.append("totalSum", (document.getInteger("price") - ((document.getInteger("price")/100)*document.getInteger("discount")) * quant + 200));
-                } else {
-                    order.append("totalSum", document.getInteger("price") * quant);
+            try {
+                if (document.getString("name").equals(parameter)) {
+                    order.append("medicine", parameter);
+                    order.append("quantity", quant);
+                    order.append("address", address);
+                    order.append("status", "ordered");
+                    if (document.getInteger("discount") != null) {
+                        order.append("totalSum", (document.getInteger("price") - ((document.getInteger("price")/100)*document.getInteger("discount")) * quant + 200));
+                    } else {
+                        order.append("totalSum", document.getInteger("price") * quant);
+                    }
+                    Database.orders.insertOne(order);
+                } else if (document.getInteger("code").equals(Integer.parseInt(parameter))) {
+                    order.append("medicine", document.getString("name"));
+                    order.append("quantity", quant);
+                    order.append("address", address);
+                    order.append("status", "ordered");
+                    if (document.getInteger("discount") != null) {
+                        order.append("totalSum", (document.getInteger("price") - ((document.getInteger("price")/100)*document.getInteger("discount")) * quant + 200));
+                    } else {
+                        order.append("totalSum", document.getInteger("price") * quant);
+                    }
+                    Database.orders.insertOne(order);
                 }
-                Database.orders.insertOne(order);
-            }
+            } catch (NumberFormatException ignored) {}
         }
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--Imports-->
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -15,10 +16,13 @@
                     <font>
                         <Font size="20.0" />
                     </font></Label>
+<!--                Log out button-->
                 <Button fx:id="LogOutButton" layoutX="802.0" layoutY="31.0" mnemonicParsing="false" text="Log out" />
+<!--                Home button-->
                 <Button fx:id="HomeButton" layoutX="75.0" layoutY="31.0" mnemonicParsing="false" text="Home" />
             </children>
         </AnchorPane>
+<!--        Table of medicines with large quantity-->
       <TableView fx:id="meds" layoutX="306.0" layoutY="151.0" prefHeight="299.0" prefWidth="288.0">
         <columns>
           <TableColumn fx:id="name" prefWidth="146.0" text="Name" />

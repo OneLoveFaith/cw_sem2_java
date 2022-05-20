@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--Imports-->
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -10,13 +11,16 @@
     <children>
         <AnchorPane prefHeight="86.0" prefWidth="900.0" style="-fx-background-color: #2e3348;">
             <children>
+<!--                Label for courier-->
                 <Label fx:id="CourierLabel" layoutX="321.0" layoutY="14.0" prefHeight="60.0" prefWidth="258.0" text="Hello" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font size="20.0" />
                     </font></Label>
+<!--                Log out button-->
                 <Button fx:id="LogOutButton" layoutX="802.0" layoutY="31.0" mnemonicParsing="false" text="Log out" />
             </children>
         </AnchorPane>
+<!--        Courier menu-->
         <ListView fx:id="CourierListView" fixedCellSize="40.0" layoutX="202.0" layoutY="113.0" prefHeight="327.0" prefWidth="498.0" />
     </children>
 </AnchorPane>

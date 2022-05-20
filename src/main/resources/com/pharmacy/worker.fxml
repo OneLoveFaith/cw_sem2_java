@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--Imports-->
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -14,9 +15,11 @@
                     <font>
                         <Font size="20.0" />
                     </font></Label>
+<!--                Log ou button-->
                 <Button fx:id="LogOutButton" layoutX="802.0" layoutY="31.0" mnemonicParsing="false" text="Log out" />
             </children>
         </AnchorPane>
+<!--        Worker menu-->
         <ListView fx:id="WorkerListView" fixedCellSize="40.0" layoutX="202.0" layoutY="113.0" prefHeight="327.0" prefWidth="498.0" />
     </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--Imports-->
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,7 +14,9 @@
                     <font>
                         <Font size="40.0" />
                     </font></Label>
+<!--                Log out button-->
                 <Button fx:id="LogOutButton" layoutX="802.0" layoutY="31.0" mnemonicParsing="false" text="Log out" />
+<!--                Home button-->
                 <Button fx:id="HomeButton" layoutX="69.0" layoutY="31.0" mnemonicParsing="false" text="Home" />
             </children>
         </AnchorPane>
